@@ -1,0 +1,28 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-authcognito-dev-123546-authRole",
+      "UnauthRoleArn": "arn:aws:iam::776973737339:role/amplify-authcognito-dev-123546-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::776973737339:role/amplify-authcognito-dev-123546-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-authcognito-dev-123546-deployment",
+      "UnauthRoleName": "amplify-authcognito-dev-123546-unauthRole",
+      "StackName": "amplify-authcognito-dev-123546",
+      "StackId": "arn:aws:cloudformation:eu-west-2:776973737339:stack/amplify-authcognito-dev-123546/d03ff130-5725-11eb-bea2-0aad80cb4966",
+      "AmplifyAppId": "d1wos8vuc99go5"
+    },
+    "categories": {
+      "function": {
+        "authcognitod1f414cad1f414caCustomMessage": {
+          "REDIRECTURL": "http://localhost:3000",
+          "EMAILSUBJECT": "Open here",
+          "EMAILMESSAGE": "Click here"
+        },
+        "authcognitod1f414cad1f414caPreSignup": {}
+      },
+      "auth": {
+        "authcognitod1f414cad1f414ca": {}
+      }
+    }
+  }
+}

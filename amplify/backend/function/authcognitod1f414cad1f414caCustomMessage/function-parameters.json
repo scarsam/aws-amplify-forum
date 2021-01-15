@@ -1,0 +1,25 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "authcognitod1f414cad1f414ca",
+  "functionName": "authcognitod1f414cad1f414caCustomMessage",
+  "resourceName": "authcognitod1f414cad1f414caCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "roleName": "authcognitod1f414cad1f414caCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "http://localhost:3000",
+  "EMAILSUBJECT": "Open here",
+  "EMAILMESSAGE": "Click here",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

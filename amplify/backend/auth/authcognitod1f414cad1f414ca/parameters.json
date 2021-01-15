@@ -1,0 +1,88 @@
+{
+    "identityPoolName": "authcognitod1f414ca_identitypool_d1f414ca",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "authcod1f414ca",
+    "userPoolName": "authcognitod1f414ca_userpool_d1f414ca",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email",
+        "preferred_username"
+    ],
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email",
+        "preferred_username"
+    ],
+    "userpoolClientReadAttributes": [
+        "email",
+        "preferred_username"
+    ],
+    "userpoolClientLambdaRole": "authcod1f414ca_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "d1f414ca",
+    "resourceName": "authcognitod1f414cad1f414ca",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+        "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{\n  \"CustomMessage\": [\n    \"verification-link\"\n  ],\n  \"PreSignup\": [\n    \"custom\"\n  ]\n}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "verificationBucketName": "authcognitod1f414cad1f414caverificationbucket",
+    "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "authcognitod1f414cad1f414caCustomMessage",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "authcognitod1f414cad1f414caPreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ]
+}
