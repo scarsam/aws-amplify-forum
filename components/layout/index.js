@@ -6,6 +6,7 @@ const Layout = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    checkUser();
     return Hub.listen("auth", (data) => {
       const { payload } = data;
       if (payload.event === "signIn") return checkUser();

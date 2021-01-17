@@ -40,6 +40,7 @@ const Signup = () => {
         <ErrorMessage
           errors={errors}
           name="username"
+          autoComplete="true"
           message="Username is required"
           render={({ message }) => <p>{message}</p>}
         />
@@ -50,6 +51,7 @@ const Signup = () => {
         <ErrorMessage
           errors={errors}
           name="email"
+          autoComplete="true"
           message="Email address is required"
           render={({ message }) => <p>{message}</p>}
         />
@@ -59,6 +61,7 @@ const Signup = () => {
         <input
           name="password"
           type="password"
+          autoComplete="true"
           ref={register({ required: true })}
         />
         <ErrorMessage

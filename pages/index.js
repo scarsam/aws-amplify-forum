@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Login from "../components/auth/Login";
-import Signup from "../components/auth/Signup";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -22,8 +21,14 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <Signup />
-          <Login />
+          <Link href="/signup">
+            <a>Signup</a>
+          </Link>
+        </div>
+        <div className={styles.grid}>
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
         </div>
       </main>
     </div>

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import ResetPassword from "./ResetPassword";
+import ForgotPassword from "./ForgotPassword";
+import ForgotPasswordToggle from "./ForgotPasswordLink";
 
 const Login = () => {
+  const [forgotPassword, setForgotPassword] = useState(false);
   const { register, handleSubmit, errors, setError, reset } = useForm();
 
   const onSubmit = async ({ email, password }) => {
@@ -20,39 +24,61 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <p>Login</p>
+    <div>
+      {forgotPassword ? (
+        <>
+          <ForgotPassword />
+          <ResetPassword />
+        </>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <p>Login</p>
 
-      <label>
-        <input name="email" type="email" ref={register({ required: true })} />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          message="Email address is required"
-          render={({ message }) => <p>{message}</p>}
-        />
-      </label>
+            <ErrorMessage
+              errors={errors}
+              name="server"
+              render={({ message }) => <p>{message}</p>}
+            />
 
-      <label>
-        <input
-          name="password"
-          type="password"
-          ref={register({ required: true })}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          message="Password is required"
-          render={({ message }) => <p>{message}</p>}
-        />
-      </label>
-      <ErrorMessage
-        errors={errors}
-        name="server"
-        render={({ message }) => <p>{message}</p>}
+            <label>
+              <input
+                name="email"
+                type="email"
+                autoComplete="on"
+                ref={register({ required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="email"
+                message="Email address is required"
+                render={({ message }) => <p>{message}</p>}
+              />
+            </label>
+
+            <label>
+              <input
+                name="password"
+                type="password"
+                autoComplete="on"
+                ref={register({ required: true })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                message="Password is required"
+                render={({ message }) => <p>{message}</p>}
+              />
+            </label>
+            <input type="submit" />
+          </form>
+        </>
+      )}
+      <ForgotPasswordToggle
+        forgotPassword={forgotPassword}
+        toggle={setForgotPassword}
       />
-      <input type="submit" />
-    </form>
+    </div>
   );
 };
 
