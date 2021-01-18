@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import Login from "../components/auth/Login";
+import React from "react";
+import ResetPasswordFlow from "../components/auth/ResetPasswordFlow";
 import styles from "../styles/Home.module.css";
 
-export default function LoginPage() {
+const ResetPassword = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,15 +13,17 @@ export default function LoginPage() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Reset Password</h1>
 
         <div className={styles.grid}>
-          <Login />
-          <Link href="/reset-password">
-            <a>Reset password</a>
+          <ResetPasswordFlow />
+          <Link href="/login">
+            <a>Login instead</a>
           </Link>
         </div>
       </main>
     </div>
   );
-}
+};
+
+export default ResetPassword;

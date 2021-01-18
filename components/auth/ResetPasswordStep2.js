@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-const ResetPassword = () => {
+const ResetPasswordStep2 = ({ email, handleEmail, navigation }) => {
+  const { previous } = navigation;
   const [invalidToken, setInvalidToken] = useState(false);
   const { register, handleSubmit, errors, setError, reset } = useForm();
 
-  const onSubmit = async ({ email, confirmationCode, password }) => {
+  useEffect(() => {
+    if (!email) {
+      previous();
+    }
+  }, [email]);
+
+  const onSubmit = async ({ confirmationCode, password }) => {
     try {
       await Auth.forgotPasswordSubmit(email, confirmationCode, password);
+      await Auth.signIn(email, password);
       reset();
+      handleEmail(null);
     } catch (error) {
       console.log({ error });
       if (error.code === "ExpiredCodeException") {
         setInvalidToken(true);
-        return console.log("Re-send code");
+        return setError("server", {
+          type: "manual",
+          message: "Invalid code, go back to re-send",
+        });
       }
 
       if (error.code === "InvalidParameterException") {
@@ -64,6 +76,7 @@ const ResetPassword = () => {
 
       <label>
         <input
+          placeholder="Reset password token"
           name="confirmationCode"
           type="confirmationCode"
           ref={register({ required: true })}
@@ -78,18 +91,8 @@ const ResetPassword = () => {
       </label>
 
       <label>
-        <input name="email" type="email" ref={register({ required: true })} />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          autoComplete="true"
-          message="Email address is required"
-          render={({ message }) => <p>{message}</p>}
-        />
-      </label>
-
-      <label>
         <input
+          placeholder="New password"
           name="password"
           type="password"
           autoComplete="true"
@@ -102,9 +105,10 @@ const ResetPassword = () => {
           render={({ message }) => <p>{message}</p>}
         />
       </label>
+      <button onClick={previous}>Back</button>
       <input type="submit" />
     </form>
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordStep2;
