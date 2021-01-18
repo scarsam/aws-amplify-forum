@@ -1,10 +1,25 @@
-import React from "react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 const Login = () => {
-  const { register, handleSubmit, errors, setError, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setError,
+    reset,
+    formState,
+  } = useForm({
+    mode: "onChange",
+  });
 
   const onSubmit = async ({ email, password }) => {
     try {
@@ -21,44 +36,50 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <p>Login</p>
-
       <ErrorMessage
         errors={errors}
         name="server"
         render={({ message }) => <p>{message}</p>}
       />
 
-      <label>
-        <input
-          name="email"
+      <FormControl pb={4} id="email" isInvalid={errors?.email}>
+        <FormLabel>Email</FormLabel>
+        <Input
+          placeholder="Email"
           type="email"
-          autoComplete="on"
+          name="email"
           ref={register({ required: true })}
         />
         <ErrorMessage
           errors={errors}
           name="email"
           message="Email address is required"
-          render={({ message }) => <p>{message}</p>}
+          render={({ message }) => (
+            <FormErrorMessage>{message}</FormErrorMessage>
+          )}
         />
-      </label>
+      </FormControl>
 
-      <label>
-        <input
-          name="password"
+      <FormControl pb={4} id="password" isInvalid={errors?.password}>
+        <FormLabel>Password</FormLabel>
+        <Input
+          placeholder="Password"
           type="password"
-          autoComplete="on"
+          name="password"
           ref={register({ required: true })}
         />
         <ErrorMessage
           errors={errors}
           name="password"
           message="Password is required"
-          render={({ message }) => <p>{message}</p>}
+          render={({ message }) => (
+            <FormErrorMessage>{message}</FormErrorMessage>
+          )}
         />
-      </label>
-      <input type="submit" />
+      </FormControl>
+      <Button type="submit" variant="solid" disabled={!formState.isValid}>
+        Login
+      </Button>
     </form>
   );
 };

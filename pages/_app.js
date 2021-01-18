@@ -1,4 +1,5 @@
 import Amplify from "aws-amplify";
+import { ChakraProvider } from "@chakra-ui/react";
 import config from "../src/aws-exports";
 import Layout from "../components/layout";
 
@@ -11,9 +12,11 @@ Amplify.configure({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ChakraProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ChakraProvider>
   );
 }
 

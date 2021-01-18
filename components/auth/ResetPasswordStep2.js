@@ -1,12 +1,28 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 const ResetPasswordStep2 = ({ email, handleEmail, navigation }) => {
   const { previous } = navigation;
   const [invalidToken, setInvalidToken] = useState(false);
-  const { register, handleSubmit, errors, setError, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setError,
+    reset,
+    formState,
+  } = useForm({
+    mode: "onChange",
+  });
 
   useEffect(() => {
     if (!email) {
@@ -59,8 +75,6 @@ const ResetPasswordStep2 = ({ email, handleEmail, navigation }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <p>Reset Password</p>
-
       <ErrorMessage
         errors={errors}
         name="server"
@@ -70,43 +84,52 @@ const ResetPasswordStep2 = ({ email, handleEmail, navigation }) => {
       {invalidToken && (
         <>
           <p>Invalid or expired code, re-send confirmation token?</p>
-          <button onClick={reSubmitCode}>Send</button>
+          <Button onClick={reSubmitCode}>Send</Button>
         </>
       )}
 
-      <label>
-        <input
-          placeholder="Reset password token"
-          name="confirmationCode"
+      <FormControl
+        pb={4}
+        id="confirmationCode"
+        isInvalid={errors?.confirmationCode}
+      >
+        <FormLabel>Reset Password Code</FormLabel>
+        <Input
+          placeholder="Reset password code"
           type="confirmationCode"
+          name="confirmationCode"
           ref={register({ required: true })}
         />
         <ErrorMessage
           errors={errors}
           name="confirmationCode"
-          autoComplete="true"
-          message="Confirmation code is required"
-          render={({ message }) => <p>{message}</p>}
+          message="Reset password token is required"
+          render={({ message }) => (
+            <FormErrorMessage>{message}</FormErrorMessage>
+          )}
         />
-      </label>
+      </FormControl>
 
-      <label>
-        <input
+      <FormControl pb={4} id="password" isInvalid={errors?.password}>
+        <FormLabel>New Password</FormLabel>
+        <Input
           placeholder="New password"
-          name="password"
           type="password"
-          autoComplete="true"
+          name="password"
           ref={register({ required: true })}
         />
         <ErrorMessage
           errors={errors}
           name="password"
           message="Password is required"
-          render={({ message }) => <p>{message}</p>}
+          render={({ message }) => (
+            <FormErrorMessage>{message}</FormErrorMessage>
+          )}
         />
-      </label>
-      <button onClick={previous}>Back</button>
-      <input type="submit" />
+      </FormControl>
+      <Button type="submit" variant="solid" disabled={!formState.isValid}>
+        Reset Password
+      </Button>
     </form>
   );
 };

@@ -1,11 +1,26 @@
-import React from "react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 const ResetPasswordStep1 = ({ handleEmail, navigation }) => {
   const { next } = navigation;
-  const { register, handleSubmit, errors, setError, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setError,
+    reset,
+    formState,
+  } = useForm({
+    mode: "onChange",
+  });
 
   const onSubmit = async ({ email }) => {
     try {
@@ -33,29 +48,33 @@ const ResetPasswordStep1 = ({ handleEmail, navigation }) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <p>Forgot password</p>
-
         <ErrorMessage
           errors={errors}
           name="server"
           render={({ message }) => <p>{message}</p>}
         />
 
-        <label>
-          <input
+        <FormControl pb={4} id="email" isInvalid={errors?.email}>
+          <FormLabel>Email</FormLabel>
+          <Input
             placeholder="Email"
-            name="email"
             type="email"
+            name="email"
             ref={register({ required: true })}
           />
           <ErrorMessage
             errors={errors}
             name="email"
+            autoComplete="true"
             message="Email address is required"
-            render={({ message }) => <p>{message}</p>}
+            render={({ message }) => (
+              <FormErrorMessage>{message}</FormErrorMessage>
+            )}
           />
-        </label>
-        <input type="submit" />
+        </FormControl>
+        <Button type="submit" variant="solid" disabled={!formState.isValid}>
+          Continue
+        </Button>
       </form>
     </>
   );
