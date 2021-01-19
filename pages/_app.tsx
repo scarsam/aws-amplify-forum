@@ -1,9 +1,7 @@
 import Amplify from "aws-amplify";
 import { ChakraProvider } from "@chakra-ui/react";
-import config from "../src/aws-exports";
+import config from "../aws-config";
 import Layout from "../components/layout";
-
-import "../styles/globals.css";
 
 Amplify.configure({
   ...config,
