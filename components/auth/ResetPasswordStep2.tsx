@@ -60,7 +60,7 @@ const ResetPasswordStep2 = ({ email, handleEmail, navigation }) => {
     }
   };
 
-  const reSubmitCode = async ({ email }) => {
+  const reSubmitCode = async () => {
     try {
       await Auth.forgotPassword(email);
       reset();
