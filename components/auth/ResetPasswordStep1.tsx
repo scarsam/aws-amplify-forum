@@ -65,7 +65,6 @@ const ResetPasswordStep1 = ({ handleEmail, navigation }) => {
           <ErrorMessage
             errors={errors}
             name="email"
-            autoComplete="true"
             message="Email address is required"
             render={({ message }) => (
               <FormErrorMessage>{message}</FormErrorMessage>
